@@ -1,5 +1,6 @@
 {% extends "admin/base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block title %}{{ title }} | {% trans 'dynboot' %}{% endblock %}
 
@@ -8,18 +9,18 @@
 #header{ background-color: #333940; border-bottom: solid 3px rgb(0, 136, 204); }
 
 #branding h1{ color: rgb(255, 255, 255); }
-#branding a{ color: rgb(0, 136, 204); }
-#branding a:visited{ color: rgb(0, 136, 204); }
-#branding a:hover{ color: rgb(255, 255, 255); }
+#branding a{ color: rgb(200, 200, 200); }
+#branding a:visited{ color: rgb(200,200,200); }
+#branding a:hover{ color: rgb(255, 255, 255); text-decoration: none; }
 .module h2, .module caption, .inline-group h2 { background:#ccc
-    url(/admin_media/img/admin/nav-bg.gif) bottom left repeat-x; color:
+    url({% static "admin/img/nav-bg.gif" %}) bottom left repeat-x; color:
     #333940; }
 a.section:link, a.section:visited { color: #666666; }
 </style>
 {% endblock %}
 
 {% block branding %}
-<h1 id="site-name" ><a href="{% url 'admin:index' %}"> {% trans 'dynboot' %}</a> | {{ title }}</h1>
+<h1 id="site-name" ><a href="{% url 'admin:index' %}"> {% trans 'dynboot' %} </a>| {{ title }}</h1>
 {% endblock %}
 
 {% block nav-global %}

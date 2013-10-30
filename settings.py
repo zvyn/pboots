@@ -9,7 +9,7 @@ PROJECT_PATH = path.realpath(path.dirname(__file__))
 
 # This could be made more secure against server-intern attackers but thats out
 # of scope for me.
-if sys.argv[0].find('./manage.py runserver') == 0:
+if sys.argv[1] == 'runserver':
     DEBUG = True
 else:
     DEBUG = False
