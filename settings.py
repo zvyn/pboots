@@ -9,10 +9,14 @@ PROJECT_PATH = path.realpath(path.dirname(__file__))
 
 # This could be made more secure against server-intern attackers but thats out
 # of scope for me.
-if sys.argv[1] == 'runserver':
+if len(sys.argv) >= 2 and sys.argv[1] == 'runserver':
     DEBUG = True
+    # URL prefix for static files.
+    # Example: "http://example.com/static/", "http://static.example.com/"
+    STATIC_URL = 'http://%s/' % HOSTNAME
 else:
     DEBUG = False
+    STATIC_URL = '/'
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -23,7 +27,7 @@ MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = [HOSTNAME, '127.0.0.1']
+ALLOWED_HOSTS = [HOSTNAME, '127.0.0.1', '141.70.27.60']
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -46,10 +50,6 @@ USE_TZ = True
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
 MEDIA_URL = 'https://%s/media/' % HOSTNAME
-
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = 'https://%s/' % HOSTNAME
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -85,7 +85,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "%s/templates/" % PROJECT_PATH,
+    path.join(PROJECT_PATH, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -113,6 +113,11 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'simple' : {
+            'format': '%(levelname)s %(message)s'
+        }
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -123,12 +128,22 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
         }
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+        'django': {
+            'handlers': ['mail_admins', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'pxelinux': {
+            'handlers': ['mail_admins', 'console'],
+            'level': 'INFO',
             'propagate': True,
         },
     }
