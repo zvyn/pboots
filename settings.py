@@ -13,10 +13,11 @@ if len(sys.argv) >= 2 and sys.argv[1] == 'runserver':
     DEBUG = True
     # URL prefix for static files.
     # Example: "http://example.com/static/", "http://static.example.com/"
-    STATIC_URL = 'http://%s/' % HOSTNAME
+    STATIC_URL = 'https://%s/' % HOSTNAME
 else:
     DEBUG = False
     STATIC_URL = '/'
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
