@@ -17,7 +17,6 @@ if len(sys.argv) >= 2 and sys.argv[1] == 'runserver':
 else:
     DEBUG = False
     STATIC_URL = '/'
-DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
