@@ -2,7 +2,7 @@
 
 from os import path
 import sys
-from boot.local_settings import HOSTNAME, DATABASES, TIME_ZONE, MEDIA_ROOT,\
+from pboots.local_settings import HOSTNAME, DATABASES, TIME_ZONE, MEDIA_ROOT,\
                            STATIC_ROOT, STATICFILES_DIRS, SECRET_KEY
 
 PROJECT_PATH = path.realpath(path.dirname(__file__))
@@ -76,10 +76,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'boot.urls'
+ROOT_URLCONF = 'pboots.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'boot.wsgi.application'
+WSGI_APPLICATION = 'pboots.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
