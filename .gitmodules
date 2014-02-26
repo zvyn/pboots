@@ -1,0 +1,3 @@
+[submodule "pxelinux"]
+	path = pxelinux
+	url = git@github.com:zvyn/pboots-pxelinux.git
