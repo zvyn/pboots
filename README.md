@@ -25,7 +25,7 @@ You can now run `puthon manage.py syncdb` to set up the databases and a
 superuser (you will need it later so say `yes` here).
 After a `python manage.py runserver 80` you can configure your test-setup by
 going to [http://your-boot-server-ip/cfg](http://localhost/cfg) according to
-the instructions in [pboots/pxelinux/README.md](https://github.com/zvyn/pboots-pxelinux/README.md).
+the instructions in [pboots/pxelinux/README.md](https://github.com/zvyn/pboots-pxelinux/blob/master/README.md).
 Note that the page looks ugly only in testing mode since the img and css files
 for Django-admin are missing.
 
