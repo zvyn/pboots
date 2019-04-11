@@ -1,33 +1,26 @@
 # public settings (will be published on github)
 
 from os import path
-import sys
-from pboots.local_settings import HOSTNAME, DATABASES, TIME_ZONE, MEDIA_ROOT,\
-                           STATIC_ROOT, STATICFILES_DIRS, SECRET_KEY
+from pboots.local_settings import (HOSTNAME,  # NOQA,
+                                   ADMINS,
+                                   DATABASES,
+                                   TIME_ZONE,
+                                   MEDIA_ROOT,
+                                   STATIC_ROOT,
+                                   STATICFILES_DIRS,
+                                   SECRET_KEY,
+                                   DEBUG)
 
 PROJECT_PATH = path.realpath(path.dirname(__file__))
 
-# This could be made more secure against server-intern attackers but thats out
-# of scope for me.
-if len(sys.argv) >= 2 and sys.argv[1] == 'runserver':
-    DEBUG = True
-    # URL prefix for static files.
-    # Example: "http://example.com/static/", "http://static.example.com/"
-    STATIC_URL = 'https://%s/' % HOSTNAME
-else:
-    DEBUG = False
-    STATIC_URL = '/'
+STATIC_URL = '/static/'
 TEMPLATE_DEBUG = DEBUG
-
-ADMINS = (
-    ('Milan Oberkirch', 'milan@oberkirch.org'),
-)
 
 MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = [HOSTNAME, '127.0.0.1', '141.70.27.60']
+ALLOWED_HOSTS = [HOSTNAME, '127.0.0.1']
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -56,17 +49,17 @@ MEDIA_URL = 'https://%s/media/' % HOSTNAME
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.eggs.Loader',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -82,7 +75,7 @@ ROOT_URLCONF = 'pboots.urls'
 WSGI_APPLICATION = 'pboots.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     path.join(PROJECT_PATH, 'templates'),
@@ -92,16 +85,33 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.sites',
+    # 'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    #'upxe',
+    # 'upxe',
     'pxelinux',
 )
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'OPTIONS': {
+            "context_processors": (
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
+                "django.contrib.messages.context_processors.messages"),
+        }
+    },
+]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
@@ -114,7 +124,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'simple' : {
+        'simple': {
             'format': '%(levelname)s %(message)s'
         }
     },

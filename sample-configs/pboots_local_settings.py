@@ -1,5 +1,11 @@
 HOSTNAME = ""
 
+ADMINS = (
+    ('Milan Oberkirch', 'milan@example.com'),
+)
+
+DEBUG = False
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -37,4 +43,3 @@ STATICFILES_DIRS = (
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ''
-
